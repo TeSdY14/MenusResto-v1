@@ -32,7 +32,7 @@ public class OrderTest {
         assertEquals(false, outContent.toString().isEmpty());
     }
     @Test
-    public void Given_Vegetables_When_AskForMenuSelected_Then_ShouldDisplayCorrectSentence() {
+    public void Given_Vegetarian_When_AskForMenuSelected_Then_ShouldDisplayCorrectSentence() {
         order.displaySelectedMenu(3);
         assertEquals("Vous avez choisi le menu 3\n", outContent.toString());
     }
