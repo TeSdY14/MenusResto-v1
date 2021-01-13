@@ -135,5 +135,32 @@ public class OrderTest {
         String output = outContent.toString().replace("\r\n", "\n");
         assertEquals("Vous n'avez pas choisi d'accompagnement parmi les choix proposés\n", output);
     }
+    @Test
+    public void Given_Water_When_DisplayDrinkSelected_Then_DisplayWaterSentence() {
+        order.displaySelectedDrink(1);
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals("Vous avez choisi comme boisson : eau\n", output);
+    }
+    @Test
+    public void Given_SparklingWater_When_DisplayDrinkSelected_Then_DisplaySparklingWaterSentence() {
+        order.displaySelectedDrink(2);
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals("Vous avez choisi comme boisson : eau gazeuse\n", output);
+
+    }
+    @Test
+    public void Given_Soda_When_DisplayDrinkSelected_Then_DisplaySodaSentence() {
+        order.displaySelectedDrink(3);
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals("Vous avez choisi comme boisson : soda\n", output);
+
+    }
+    @Test
+    public void Given_BadValue_When_DisplayDrinkSelected_Then_DisplayErrorSentence() {
+        order.displaySelectedDrink(15);
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals("Vous n'avez pas choisi de boisson parmi les choix proposés\n", output);
+
+    }
 
 }

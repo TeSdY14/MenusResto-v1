@@ -71,4 +71,17 @@ public class Order {
             }
         }
     }
+
+    /**
+     * Display a selected drink
+     * @param nbDrink int -> the selected drink
+     */
+    public void displaySelectedDrink(int nbDrink) {
+        switch(nbDrink) {
+            case 1 -> System.out.println("Vous avez choisi comme boisson : eau");
+            case 2 -> System.out.println("Vous avez choisi comme boisson : eau gazeuse");
+            case 3 -> System.out.println("Vous avez choisi comme boisson : soda");
+            default -> System.out.println("Vous n'avez pas choisi de boisson parmi les choix proposés");
+        }
+    }
 }
