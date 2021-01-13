@@ -33,8 +33,28 @@ public class OrderTest {
         assertFalse(outContent.toString().isEmpty());
     }
     @Test
-    public void Given_Vegetarian_When_AskForMenuSelected_Then_ShouldDisplayCorrectSentence() {
+    public void Given_Chicken_When_DisplayMenuSelected_The_DisplayChickenSentence() {
+        order.displaySelectedMenu(1);
+        assertEquals("Vous avez choisi le menu : poulet\n", outContent.toString().replace("\r\n", "\n"));
+    }
+    @Test
+    public void Given_Beef_When_DisplayMenuSelected_The_DisplayBeefSentence() {
+        order.displaySelectedMenu(2);
+        assertEquals("Vous avez choisi le menu : boeuf\n", outContent.toString().replace("\r\n", "\n"));
+    }
+    @Test
+    public void Given_Vegetarien_When_DisplayMenuSelected_The_DisplayVegetarienSentence() {
         order.displaySelectedMenu(3);
-        assertEquals("Vous avez choisi le menu 3\n", outContent.toString().replace("\r\n", "\n"));
+        assertEquals("Vous avez choisi le menu : végétarien\n", outContent.toString().replace("\r\n", "\n"));
+    }
+    @Test
+    public void Given_TooBigValue_When_DisplayMenuSelected_The_DisplayErrorSentence() {
+        order.displaySelectedMenu(15);
+        assertEquals("Vous n'avez pas choisi de menu parmi les choix proposés\n", outContent.toString().replace("\r\n", "\n"));
+    }
+    @Test
+    public void Given_NegativeValue_When_DisplayMenuSelected_The_DisplayErrorSentence() {
+        order.displaySelectedMenu(-6);
+        assertEquals("Vous n'avez pas choisi de menu parmi les choix proposés\n", outContent.toString().replace("\r\n", "\n"));
     }
 }
