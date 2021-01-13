@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 public class OrderTest {
@@ -29,7 +30,7 @@ public class OrderTest {
     @Test
     public void Given_Nothing_When_DisplayMenuSelection_Then_ShouldDisplayText() {
         order.displayAvailableMenu();
-        assertEquals(false, outContent.toString().isEmpty());
+        assertFalse(outContent.toString().isEmpty());
     }
     @Test
     public void Given_Vegetarian_When_AskForMenuSelected_Then_ShouldDisplayCorrectSentence() {
