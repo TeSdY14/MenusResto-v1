@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class OrderTest {
@@ -32,29 +32,108 @@ public class OrderTest {
         order.displayAvailableMenu();
         assertFalse(outContent.toString().isEmpty());
     }
+    /* TEST AVEC LA FONCTION CONTENANT UN IF */
     @Test
-    public void Given_Chicken_When_DisplayMenuSelected_The_DisplayChickenSentence() {
-        order.displaySelectedMenu(1);
+    public void Given_Chicken_When_DisplayMenuSelected_The_DisplayChickenSentenceWithIF() {
+        order.displaySelectedMenuWithIF(1);
         assertEquals("Vous avez choisi le menu : poulet\n", outContent.toString().replace("\r\n", "\n"));
     }
     @Test
-    public void Given_Beef_When_DisplayMenuSelected_The_DisplayBeefSentence() {
-        order.displaySelectedMenu(2);
+    public void Given_Beef_When_DisplayMenuSelected_The_DisplayBeefSentenceWithIF() {
+        order.displaySelectedMenuWithIF(2);
         assertEquals("Vous avez choisi le menu : boeuf\n", outContent.toString().replace("\r\n", "\n"));
     }
     @Test
-    public void Given_Vegetarien_When_DisplayMenuSelected_The_DisplayVegetarienSentence() {
-        order.displaySelectedMenu(3);
+    public void Given_Vegetarien_When_DisplayMenuSelected_The_DisplayVegetarienSentenceWithIF() {
+        order.displaySelectedMenuWithIF(3);
         assertEquals("Vous avez choisi le menu : végétarien\n", outContent.toString().replace("\r\n", "\n"));
     }
     @Test
-    public void Given_TooBigValue_When_DisplayMenuSelected_The_DisplayErrorSentence() {
-        order.displaySelectedMenu(15);
+    public void Given_TooBigValue_When_DisplayMenuSelected_The_DisplayErrorSentenceWithIF() {
+        order.displaySelectedMenuWithIF(15);
         assertEquals("Vous n'avez pas choisi de menu parmi les choix proposés\n", outContent.toString().replace("\r\n", "\n"));
     }
     @Test
-    public void Given_NegativeValue_When_DisplayMenuSelected_The_DisplayErrorSentence() {
-        order.displaySelectedMenu(-6);
+    public void Given_NegativeValue_When_DisplayMenuSelected_The_DisplayErrorSentenceWithIF() {
+        order.displaySelectedMenuWithIF(-6);
         assertEquals("Vous n'avez pas choisi de menu parmi les choix proposés\n", outContent.toString().replace("\r\n", "\n"));
     }
+    /* TEST AVEC LA FONCTION CONTENANT UN SWITCH */
+    @Test
+    public void Given_Chicken_When_DisplayMenuSelected_The_DisplayChickenSentenceWithSWITCH() {
+        order.displaySelectedMenuWithSWITCH(1);
+        assertEquals("Vous avez choisi le menu : poulet\n", outContent.toString().replace("\r\n", "\n"));
+    }
+    @Test
+    public void Given_Beef_When_DisplayMenuSelected_The_DisplayBeefSentenceWithSWITCH() {
+        order.displaySelectedMenuWithSWITCH(2);
+        assertEquals("Vous avez choisi le menu : boeuf\n", outContent.toString().replace("\r\n", "\n"));
+    }
+    @Test
+    public void Given_Vegetarien_When_DisplayMenuSelected_The_DisplayVegetarienSentenceWithSWITCH() {
+        order.displaySelectedMenuWithSWITCH(3);
+        assertEquals("Vous avez choisi le menu : végétarien\n", outContent.toString().replace("\r\n", "\n"));
+    }
+    @Test
+    public void Given_TooBigValue_When_DisplayMenuSelected_The_DisplayErrorSentenceWithSWITCH() {
+        order.displaySelectedMenuWithSWITCH(15);
+        assertEquals("Vous n'avez pas choisi de menu parmi les choix proposés\n", outContent.toString().replace("\r\n", "\n"));
+    }
+    @Test
+    public void Given_NegativeValue_When_DisplayMenuSelected_The_DisplayErrorSentenceWithSWITCH() {
+        order.displaySelectedMenuWithSWITCH(-6);
+        assertEquals("Vous n'avez pas choisi de menu parmi les choix proposés\n", outContent.toString().replace("\r\n", "\n"));
+    }
+    @Test
+    public void Given_ChickenInStandardInput_When_MenuIsRun_Then_DisplayCorrectProcess() {
+        System.setIn(new ByteArrayInputStream("1\n".getBytes()));
+        order = new Order();
+        order.runMenu();
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals(output.endsWith("Vous avez choisi le menu : poulet\n"), true);
+        assertEquals(output.length() > "Vous avez choisi le menu : poulet\n".length(), true);
+    }
+    @Test
+    public void Given_VegetablesAndAllSides_When_DisplaySideSelected_Then_DisplayVegetablesSentence() {
+                order.displaySelectedSide(1, true);
+                String output = outContent.toString().replace("\r\n", "\n");
+                assertEquals("Vous avez choisi comme accompagnement : légumes frais\n", output);
+    }
+    @Test
+    public void Given_FriesAndAllSides_When_DisplaySideSelected_Then_DisplayFriesSentence() {
+        order.displaySelectedSide(2, true);
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals("Vous avez choisi comme accompagnement : frites\n", output);
+    }
+    @Test
+    public void Given_RiceAndAllSides_When_DisplaySideSelected_Then_DisplayRiceSentence() {
+        order.displaySelectedSide(3, true);
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals("Vous avez choisi comme accompagnement : riz\n", output);
+    }
+    @Test
+    public void Given_BadValueAndAllSides_When_DisplaySideSelected_Then_DisplayErrorSentence() {
+        order.displaySelectedSide(5, true);
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals("Vous n'avez pas choisi d'accompagnement parmi les choix proposés\n", output);
+    }
+    @Test
+    public void Given_RiceNotAllSides_When_DisplaySideSelected_Then_DisplayRiceSentence() {
+        order.displaySelectedSide(1, false);
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals("Vous avez choisi comme accompagnement : riz\n", output);
+    }
+    @Test
+    public void Given_NoRiceAndNotAllSides_When_DisplaySideSelected_Then_DisplayNoRiceSentence() {
+        order.displaySelectedSide(2, false);
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals("Vous avez choisi comme accompagnement : pas de riz\n", output);
+    }
+    @Test
+    public void Given_BadValueAndNotAllSides_When_DisplaySideSelected_Then_DisplayErrorSentence() {
+        order.displaySelectedSide(5, false);
+        String output = outContent.toString().replace("\r\n", "\n");
+        assertEquals("Vous n'avez pas choisi d'accompagnement parmi les choix proposés\n", output);
+    }
+
 }
