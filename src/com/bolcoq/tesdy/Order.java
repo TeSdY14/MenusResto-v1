@@ -1,4 +1,4 @@
-package com.ocr.anthony;
+package com.bolcoq.tesdy;
 
 import java.util.Scanner;
 

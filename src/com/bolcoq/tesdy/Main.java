@@ -1,6 +1,4 @@
-package com.ocr.anthony;
-
-import java.util.Scanner;
+package com.bolcoq.tesdy;
 
 public class Main {
 
