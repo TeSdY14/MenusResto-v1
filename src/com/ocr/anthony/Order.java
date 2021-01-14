@@ -3,6 +3,8 @@ package com.ocr.anthony;
 import java.util.Scanner;
 
 public class Order {
+    Scanner sc = new Scanner(System.in);
+
     /**
      * Display all available menus in the restaurant.
      */
@@ -102,32 +104,67 @@ public class Order {
     }
     public void runMenu() {
         this.displayAvailableMenu();
-        Scanner sc = new Scanner(System.in);
-        int nbMenu = sc.nextInt();
-        this.displaySelectedMenuWithIF(nbMenu);
-        // Si nb = 3 => allSide = false
-        switch(nbMenu) {
-            case 1:
-                displayAvailableSide(true);
-                int nbSide = sc.nextInt();
-                displaySelectedSide(nbSide, true);
-                displayAvailableDrink();
-                int nbDrink = sc.nextInt();
-                displaySelectedDrink(nbDrink);
-                break;
-            case 2:
-                displayAvailableSide(true);
-                nbSide = sc.nextInt();
-                displaySelectedSide(nbSide, true);
-                break;
-            case 3:
-                displayAvailableSide(false);
-                nbSide = sc.nextInt();
-                displaySelectedSide(nbSide, false);
-                displayAvailableDrink();
-                nbDrink = sc.nextInt();
-                displaySelectedDrink(nbDrink);
-                break;
+        int nbMenu;
+        do {
+            nbMenu = sc.nextInt();
+            this.displaySelectedMenuWithIF(nbMenu);
+            // Si nb = 3 => allSide = false
+            switch(nbMenu) {
+                case 1:
+                    displayAvailableSide(true);
+                    int nbSide = sc.nextInt();
+                    displaySelectedSide(nbSide, true);
+                    displayAvailableDrink();
+                    int nbDrink = sc.nextInt();
+                    displaySelectedDrink(nbDrink);
+                    break;
+                case 2:
+                    displayAvailableSide(true);
+                    nbSide = sc.nextInt();
+                    displaySelectedSide(nbSide, true);
+                    break;
+                case 3:
+                    displayAvailableSide(false);
+                    nbSide = sc.nextInt();
+                    displaySelectedSide(nbSide, false);
+                    displayAvailableDrink();
+                    nbDrink = sc.nextInt();
+                    displaySelectedDrink(nbDrink);
+                    break;
+            }
+        } while (nbMenu < 1 || nbMenu > 3);
+    }
+
+    public void runMenus() {
+        /* TROIS FOIS le même code mais avec des conditions différentes :
+        // WHILE() {}
+        System.out.println("while () {");
+        System.out.println("Combien souhaitez-vous commander de menu(s) ?");
+        int nbMenusWhile = sc.nextInt();
+        while (nbMenusWhile > 0) {
+            this.runMenu();
+            nbMenusWhile--;
         }
+        System.out.println("}");
+*/
+        // FOR() {}
+        System.out.println("for () {");
+        System.out.println("Combien souhaitez-vous commander de menu(s) ?");
+        int nbMenusFor = sc.nextInt();
+        for (int i = 0; i < nbMenusFor; i++) {
+            this.runMenu();
+        }
+        System.out.println("}");
+/*
+        // DO {} WHILE()
+        System.out.println("do {");
+        System.out.println("Combien souhaitez-vous commander de menu(s) ?");
+        int nbMenusDoWhile = sc.nextInt();
+       do {
+            this.runMenu();
+            nbMenusDoWhile--;
+        } while (nbMenusDoWhile > 0);
+        System.out.println("} while ()");
+    */
     }
 }
