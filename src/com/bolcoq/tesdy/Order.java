@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Order {
     Scanner sc = new Scanner(System.in);
+    long calculTime = System.nanoTime();
 
     /**
      * Display all available menus in the restaurant.
@@ -109,33 +110,22 @@ public class Order {
             nbMenu = sc.nextInt();
             this.displaySelectedMenuWithIF(nbMenu);
             // Si nb = 3 => allSide = false
-            switch(nbMenu) {
-                case 1:
-                    displayAvailableSide(true);
-                    int nbSide = sc.nextInt();
-                    displaySelectedSide(nbSide, true);
-                    displayAvailableDrink();
-                    int nbDrink = sc.nextInt();
-                    displaySelectedDrink(nbDrink);
-                    break;
-                case 2:
-                    displayAvailableSide(true);
-                    nbSide = sc.nextInt();
-                    displaySelectedSide(nbSide, true);
-                    break;
-                case 3:
-                    displayAvailableSide(false);
-                    nbSide = sc.nextInt();
-                    displaySelectedSide(nbSide, false);
-                    displayAvailableDrink();
-                    nbDrink = sc.nextInt();
-                    displaySelectedDrink(nbDrink);
-                    break;
+            switch (nbMenu) {
+                case 1 -> {
+                    askSide(true);
+                    askDrink();
+                }
+                case 2 -> askSide(true);
+                case 3 -> {
+                    askSide(false);
+                    askDrink();
+                }
             }
         } while (nbMenu < 1 || nbMenu > 3);
     }
 
     public void runMenus() {
+        whichIsFastest();
         /* TROIS FOIS le même code mais avec des conditions différentes :
         // WHILE() {}
         System.out.println("while () {");
@@ -166,5 +156,32 @@ public class Order {
         } while (nbMenusDoWhile > 0);
         System.out.println("} while ()");
     */
+    }
+
+    public void whichIsFastest() {
+        System.out.println("Bonjour affiché en : " + (System.nanoTime() - calculTime) + " nanosecondes");
+    }
+
+    public void askMenu() {
+        String things = "menu";
+        String[] menus = {"poulet", "beef", "vegetarian"};
+        Interaction.askSomething(things, menus);
+    }
+
+    public void askSide(boolean allSidesEnable) {
+        String things = "accompagnement";
+        String[] responseUserSide;
+        if (allSidesEnable) {
+            responseUserSide = new String[]{"légumes frais", "frites", "riz"};
+        } else {
+            responseUserSide = new String[]{"riz", "pas de riz"};
+        }
+        Interaction.askSomething(things, responseUserSide);
+    }
+
+    public void askDrink() {
+        String things = "boisson";
+        String[] responseUserDrink = {"eau plate", "eau gazeuse", "soda"};
+        Interaction.askSomething(things, responseUserDrink);
     }
 }
